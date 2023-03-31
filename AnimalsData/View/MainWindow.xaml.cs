@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using AnimalsData.ViewModel;
 
 namespace AnimalsData.View
 {
@@ -10,6 +11,7 @@ namespace AnimalsData.View
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = new MainWindowViewModel();
         }
     }
 }
