@@ -5,7 +5,13 @@ namespace AnimalsData.Model.AnimalModels
 {
     class Bird : IAnimal
     {
-        public string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Type { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Name { get; set; }
+        public string Type { get; set; }
+
+        public Bird(string name, string type)
+        {
+            this.Name = name;
+            this.Type = type;
+        }
     }
 }

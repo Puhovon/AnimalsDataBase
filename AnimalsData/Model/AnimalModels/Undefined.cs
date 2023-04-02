@@ -6,5 +6,11 @@ namespace AnimalsData.Model.AnimalModels
     {
         public string Name { get; set; } = "Undefined";
         public string Type { get; set; } = "Undefined";
+
+        public Undefined(string name,string type)
+        {
+            this.Name = name;
+            this.Type = type;
+        }
     }
 }

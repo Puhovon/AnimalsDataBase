@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
 using AnimalsData.Infrastructure.Command;
 using AnimalsData.Model;
 using AnimalsData.Model.AnimalModels;
+using AnimalsData.Model.Base;
 using AnimalsData.ViewModel.Base;
 
 namespace AnimalsData.ViewModel
@@ -15,22 +17,23 @@ namespace AnimalsData.ViewModel
 
         #region Fields
 
+
         #region ComboBox
 
-        private IEnumerable<TypeOfAnimal> _ComboboxItems;
+        private IEnumerable<TypeOfAnimal> _typeOfAnimalsTypeOfAnimalsItems;
 
-        public IEnumerable<TypeOfAnimal> ComboboxItems
+        public IEnumerable<TypeOfAnimal> TypeOfAnimalsItems
         {
-            get => (TypeOfAnimal[])Enum.GetValues(typeof(TypeOfAnimal));
-            set => Set(ref _ComboboxItems, value);
+            get => _typeOfAnimalsTypeOfAnimalsItems;
+            set => Set(ref _typeOfAnimalsTypeOfAnimalsItems, value);
         }
 
-        private TypeOfAnimal _selectedAnimalComboBox;
+        private TypeOfAnimal _selectedAnimal;
 
         public TypeOfAnimal SelectedAnimal
         {
-            get => _selectedAnimalComboBox;
-            set => Set(ref _selectedAnimalComboBox, value);
+            get => _selectedAnimal;
+            set=> Set(ref _selectedAnimal, value);
         }
 
         #endregion
@@ -48,9 +51,9 @@ namespace AnimalsData.ViewModel
 
         #region AnimalsList
 
-        private ObservableCollection<Amphibia> _animals;
+        private ObservableCollection<IAnimal> _animals = new ObservableCollection<IAnimal>();
 
-        public ObservableCollection<Amphibia> Animals
+        public ObservableCollection<IAnimal> Animals
         {
             get => _animals;
             set => Set(ref _animals, value);
@@ -62,29 +65,40 @@ namespace AnimalsData.ViewModel
 
         #region Commands
 
-        #region SelectOneOfTypeAnimal
+        #region SelectTypeOfAnimalCommand
 
-        public ICommand SelectOneOfTypeAnimal { get; }
+        public ICommand SelectTypeOfAnimalCommand { get; }
 
-        private bool CanSelectOneOfTypeAnimal(object p) => true;
-
-        private void OnSelectOneOfTypeAnimal(object p)
+        private void OnSelectTypeOfAnimal(object p)
         {
-            AnimalFactory.GetAnimal(SelectedAnimal.ToString());
+            var animals = AnimalFactory.GetAnimal(SelectedAnimal.ToString());
+            foreach (var animal in animals)
+            {
+                _animals.Add(animal);
+                Debug.Write(animal);
+            }
+
+            Debug.Write($"--------------------{SelectedAnimal}--------------------");
         }
 
-        #endregion
+        private bool CanSelectTypeOfAnimal(object p) => true;
 
+        #endregion
+        
         #endregion
 
         public MainWindowViewModel()
         {
+            
+
             #region Commands
 
-            SelectOneOfTypeAnimal 
-                = new LambdaCommand(OnSelectOneOfTypeAnimal, CanSelectOneOfTypeAnimal);
+            SelectTypeOfAnimalCommand 
+                = new LambdaCommand(OnSelectTypeOfAnimal, CanSelectTypeOfAnimal);
 
             #endregion
+
+            _typeOfAnimalsTypeOfAnimalsItems = (TypeOfAnimal[])Enum.GetValues(typeof(TypeOfAnimal));
         }
     }
 }

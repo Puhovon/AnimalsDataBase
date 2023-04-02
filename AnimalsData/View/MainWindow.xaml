@@ -3,8 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AnimalsData.Infrastructure"
-        xmlns:visualBasic="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic.Core"
+        xmlns:local="clr-namespace:AnimalsData.ViewModel"
         mc:Ignorable="d"
         Title="{Binding Title}" 
         Height="450"
@@ -23,15 +22,15 @@
 
         <!--#region Верхняя панель -->
 
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-            <TextBlock Text="Выберите тип животного "/>
-            <ComboBox SelectionChanged="{Binding SelectOneOfTypeAnimal}"
-                      SelectedItem="{Binding SelectedAnimalComboBox}" 
-                      ItemsSource="{Binding ComboboxItems}"
-                      HorizontalAlignment="Left"
-                      VerticalAlignment="Center"
-                      Width="80" >
-            </ComboBox>
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top">
+            <ListView ItemsSource="{Binding TypeOfAnimalsItems}" SelectedItem="{Binding SelectedAnimal}">
+                <ListView.InputBindings>
+                    <MouseBinding
+                        MouseAction="LeftDoubleClick"
+                                  Command="{Binding SelectTypeOfAnimalCommand}"/>
+                </ListView.InputBindings>
+            </ListView>
+            
         </StackPanel>
 
         <!--#endregion-->
@@ -39,7 +38,7 @@
         <ListView Grid.Row="1"
                   Grid.Column="0"
                   ItemsSource="{Binding Animals}"
-                  SelectedItem="{Binding SelectedAnimal}">
+                  SelectedItem="{Binding SelectedAnimal}" >
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Изменить"/>
