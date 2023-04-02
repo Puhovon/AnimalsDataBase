@@ -1,5 +1,4 @@
 ﻿using AnimalsData.Model.Base;
-using System;
 
 namespace AnimalsData.Model.AnimalModels
 {

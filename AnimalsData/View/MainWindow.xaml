@@ -11,6 +11,14 @@
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
+    <!--#region Style -->
+    <Window.Resources>
+        <Style x:Key="ListViewStyle" TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        </Style>
+    </Window.Resources>
+    <!--#endregion-->
+    
     <Grid>
         <!--#region Разметка -->
         <Grid.ColumnDefinitions>
@@ -28,7 +36,7 @@
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top">
             <ListView
                 ItemsSource="{Binding TypeOfAnimalsItems}" 
-                      SelectedItem="{Binding SelectedAnimal}"/>
+                      SelectedItem="{Binding SelectedTypeAnimal}"/>
             <Button
                 Content="Показать"
                 Command="{Binding SelectTypeOfAnimalCommand}"/>
@@ -40,11 +48,17 @@
                   Grid.Column="0"
                   ItemsSource="{Binding Animals}"
                   SelectedItem="{Binding SelectedAnimal}" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn HeaderContainerStyle="{StaticResource ListViewStyle}" Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn HeaderContainerStyle="{StaticResource ListViewStyle}" Header="Type" DisplayMemberBinding="{Binding Type}"/>
+                </GridView>
+            </ListView.View>
             <ListView.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Изменить"/>
-                    <MenuItem Header="Добавить"/>
-                    <MenuItem Header="Удалить"/>
+                    <MenuItem Header="Изменить" Command="{Binding OpenEditAnimalWindowCommand}"/>
+                    <MenuItem Header="Добавить" Command="{Binding OpenAddNewAnimalCommand}"/>
+                    <MenuItem Header="Удалить" Command="{Binding DeleteSelectedAnimalCommand}"/>
                 </ContextMenu>
             </ListView.ContextMenu>
         </ListView>

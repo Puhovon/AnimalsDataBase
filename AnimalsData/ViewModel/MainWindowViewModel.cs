@@ -5,7 +5,6 @@ using AnimalsData.ViewModel.Base;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Windows.Input;
 
 namespace AnimalsData.ViewModel
@@ -16,7 +15,7 @@ namespace AnimalsData.ViewModel
         #region Fields
 
 
-        #region ComboBox
+        #region Type of animal
 
         private IEnumerable<TypeOfAnimal> _typeOfAnimalsTypeOfAnimalsItems;
 
@@ -26,12 +25,12 @@ namespace AnimalsData.ViewModel
             set => Set(ref _typeOfAnimalsTypeOfAnimalsItems, value);
         }
 
-        private TypeOfAnimal _selectedAnimal;
+        private TypeOfAnimal _selectedTypeOfAnimal;
 
-        public TypeOfAnimal SelectedAnimal
+        public TypeOfAnimal SelectedTypeAnimal
         {
-            get => _selectedAnimal;
-            set=> Set(ref _selectedAnimal, value);
+            get => _selectedTypeOfAnimal;
+            set=> Set(ref _selectedTypeOfAnimal, value);
         }
 
         #endregion
@@ -59,6 +58,20 @@ namespace AnimalsData.ViewModel
 
         #endregion
 
+        #region Selected animal
+
+        private IAnimal _selectedAnimal;
+
+        public IAnimal SelectedAnimal
+        {
+            get => _selectedAnimal;
+            set => Set(ref _selectedAnimal, value);
+        }
+        
+        #endregion
+
+        
+        
         #endregion
 
         #region Commands
@@ -70,28 +83,83 @@ namespace AnimalsData.ViewModel
         private void OnSelectTypeOfAnimal(object p)
         {
             _animals.Clear();
-            var animals = AnimalFactory.GetAnimal(SelectedAnimal.ToString());
+            var animals = AnimalFactory.GetAnimal(SelectedTypeAnimal.ToString());
             foreach (var animal in animals)
             {
                 _animals.Add(animal);
-                Debug.Write(animal);
             }
-
-            Debug.Write($"--------------------{SelectedAnimal}--------------------\n");
         }
 
         private bool CanSelectTypeOfAnimal(object p) => true;
 
         #endregion
-        
+       
+        #region OpenAddNewAnimalCommand
+
+        public ICommand OpenAddNewAnimalCommand { get; }
+
+        private void OnOpenAddNewAnimal(object p)
+        {
+
+        }
+
+        private bool CanOpenAddNewAnimal(object p) => true;
+
+
+        #endregion
+
+        #region DeleteSelectedAnimalCommand
+
+        public ICommand DeleteSelectedAnimalCommand { get; }
+
+        private void OnDeleteSelectedAnimal(object p)
+        {
+            _animals.Remove(SelectedAnimal);
+        }
+
+        private bool CanDeleteSelectedAnimal(object p)
+        {
+            if (SelectedAnimal != null)
+                return true;
+            else
+                return false;
+        }
+
+        #endregion
+
+        #region OpenEditAnimalWindow
+
+        public ICommand OpenEditAnimalWindowCommand { get; }
+
+        private void OnOpenEditAnimalWindow(object p)
+        {
+
+        }
+
+        private bool CanOpenEditAnimalWindow(Object p)
+        {
+            if (SelectedAnimal != null)
+                return true;
+            else
+                return false;
+        }
+
+        #endregion
+
         #endregion
 
         public MainWindowViewModel()
         {
-            
+
 
             #region Commands
 
+            OpenAddNewAnimalCommand
+                = new LambdaCommand(OnOpenAddNewAnimal, CanOpenAddNewAnimal);
+            OpenEditAnimalWindowCommand
+                = new LambdaCommand(OnOpenEditAnimalWindow, CanOpenEditAnimalWindow);
+            DeleteSelectedAnimalCommand
+                = new LambdaCommand(OnDeleteSelectedAnimal, CanDeleteSelectedAnimal);
             SelectTypeOfAnimalCommand 
                 = new LambdaCommand(OnSelectTypeOfAnimal, CanSelectTypeOfAnimal);
 

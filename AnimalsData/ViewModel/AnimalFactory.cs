@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using AnimalsData.Model.AnimalModels;
+using AnimalsData.Model.Base;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using AnimalsData.Model.AnimalModels;
-using AnimalsData.Model.Base;
 
 namespace AnimalsData.ViewModel
 {
@@ -26,15 +23,12 @@ namespace AnimalsData.ViewModel
                     }
 
                     return animals;
-                    break;
                 case "Birds":
                     Debug.Write(type.ToString());
                     return animals;
-                    break;
                 case "Mammals":
                     Debug.Write(type.ToString());
                     return animals;
-                    break;
                     default:
                     Debug.Write(type.ToString());
                     return animals;

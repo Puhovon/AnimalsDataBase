@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AnimalsData.Infrastructure.Command.Base;
+﻿using AnimalsData.Infrastructure.Command.Base;
+using System;
 
 namespace AnimalsData.Infrastructure.Command
 {

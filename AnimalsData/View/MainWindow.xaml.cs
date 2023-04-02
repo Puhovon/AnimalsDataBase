@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using AnimalsData.ViewModel;
 
 namespace AnimalsData.View
 {
