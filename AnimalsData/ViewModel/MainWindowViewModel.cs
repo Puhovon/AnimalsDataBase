@@ -1,14 +1,12 @@
-﻿using System;
+﻿using AnimalsData.Infrastructure.Command;
+using AnimalsData.Model;
+using AnimalsData.Model.Base;
+using AnimalsData.ViewModel.Base;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Windows.Input;
-using AnimalsData.Infrastructure.Command;
-using AnimalsData.Model;
-using AnimalsData.Model.AnimalModels;
-using AnimalsData.Model.Base;
-using AnimalsData.ViewModel.Base;
 
 namespace AnimalsData.ViewModel
 {
@@ -71,6 +69,7 @@ namespace AnimalsData.ViewModel
 
         private void OnSelectTypeOfAnimal(object p)
         {
+            _animals.Clear();
             var animals = AnimalFactory.GetAnimal(SelectedAnimal.ToString());
             foreach (var animal in animals)
             {
@@ -78,7 +77,7 @@ namespace AnimalsData.ViewModel
                 Debug.Write(animal);
             }
 
-            Debug.Write($"--------------------{SelectedAnimal}--------------------");
+            Debug.Write($"--------------------{SelectedAnimal}--------------------\n");
         }
 
         private bool CanSelectTypeOfAnimal(object p) => true;
