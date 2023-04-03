@@ -4,7 +4,9 @@ using AnimalsData.ViewModel.Base;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
+using AnimalsData.View;
 
 namespace AnimalsData.ViewModel
 {
@@ -99,7 +101,8 @@ namespace AnimalsData.ViewModel
 
         private void OnOpenAddNewAnimal(object p)
         {
-
+            AddNewAnimalWindow addWindow = new AddNewAnimalWindow();
+            addWindow.Show();
         }
 
         private bool CanOpenAddNewAnimal(object p) => true;

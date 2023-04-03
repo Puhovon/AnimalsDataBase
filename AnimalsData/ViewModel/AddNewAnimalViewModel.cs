@@ -1,7 +1,12 @@
 ﻿using AnimalsData.Model.Base;
 using AnimalsData.ViewModel.Base;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Input;
+using AnimalsData.Infrastructure.Command;
+using AnimalsData.Model.AnimalModels;
+using AnimalsData.Model.DataBase;
+using System;
 
 namespace AnimalsData.ViewModel
 {
@@ -9,6 +14,8 @@ namespace AnimalsData.ViewModel
     {
 
         #region Fields
+
+        private SqlData context;
 
         #region Name 
 
@@ -50,7 +57,32 @@ namespace AnimalsData.ViewModel
 
         private void onApplyCreationNewAnimalCommand(object p)
         {
+            switch (SelectedTypeAnimal.ToString())
+            {
+                case "Amphibias":
+                    var amphibia = new Amphibia(Name, SelectedTypeAnimal.ToString());
+                    context.Add(amphibia);
+                    Debug.WriteLine($"Creation Completed: {SelectedTypeAnimal.ToString()}");
+                    break;
+                
+                case "Mammals":
+                    var mammal= new Mammal(Name, SelectedTypeAnimal.ToString());
+                    context.Add(mammal);
+                    Debug.WriteLine($"Creation Completed: {SelectedTypeAnimal.ToString()}");
+                    break;
+                
+                case "Birds":
+                    var bird = new Bird(Name, SelectedTypeAnimal.ToString());
+                    context.Add(bird);
+                    Debug.WriteLine($"Creation Completed: {SelectedTypeAnimal.ToString()}");
+                    break;
 
+                case "Undefineds":
+                    var undefiend = new Undefined(Name, SelectedTypeAnimal.ToString());
+                    context.Add(undefiend);
+                    Debug.WriteLine($"Creation Completed: {SelectedTypeAnimal.ToString()}");
+                    break;
+            }
         }
 
         private bool CanApplyCreationNewAnimalCommand(object p)
@@ -65,6 +97,16 @@ namespace AnimalsData.ViewModel
 
         public AddNewAnimalViewModel()
         {
+            context = new SqlData();
+
+            #region Commands
+
+                ApplyCreationNewAnimalCommand 
+                    = new LambdaCommand(onApplyCreationNewAnimalCommand,CanApplyCreationNewAnimalCommand);
+
+            #endregion
+
+            _typeOfAnimalsTypeOfAnimalsItems = (TypeOfAnimal[])Enum.GetValues(typeof(TypeOfAnimal));
 
         }
 

@@ -1,11 +1,14 @@
-﻿using AnimalsData.Model.Base;
+﻿using AnimalsData.Model.AnimalModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace AnimalsData.Model.DataBase
 {
     internal class Context : DbContext
     {
-        public DbSet<IAnimal> Animals{ get; set; }
+        public DbSet<Amphibia> Amphibias{ get; set; }
+        public DbSet<Mammal> Mammals{ get; set; }
+        public DbSet<Bird> Birds{ get; set; }
+        public DbSet<Undefined> Undefindes{ get; set; }
 
 
         public Context()
@@ -20,7 +23,10 @@ namespace AnimalsData.Model.DataBase
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<IAnimal>();
+            modelBuilder.Entity<Amphibia>();
+            modelBuilder.Entity<Mammal>();
+            modelBuilder.Entity<Bird>();
+            modelBuilder.Entity<Undefined>();
         }
     }
 }
