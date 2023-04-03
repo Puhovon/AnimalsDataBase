@@ -4,6 +4,7 @@ namespace AnimalsData.Model.AnimalModels
 {
     class Undefined : IAnimal
     {
+        public int Id { get; set; }
         public string Name { get; set; } = "Undefined";
         public string Type { get; set; } = "Undefined";
 

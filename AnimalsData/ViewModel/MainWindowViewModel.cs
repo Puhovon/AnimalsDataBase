@@ -1,5 +1,4 @@
 ﻿using AnimalsData.Infrastructure.Command;
-using AnimalsData.Model;
 using AnimalsData.Model.Base;
 using AnimalsData.ViewModel.Base;
 using System;
