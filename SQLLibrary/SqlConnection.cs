@@ -2,8 +2,9 @@ using System;
 
 namespace SQLLibrary
 {
-    public class Class1
+    public class SqlConnection
     {
 
+        
     }
 }

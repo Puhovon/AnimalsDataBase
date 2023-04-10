@@ -1,4 +1,4 @@
-﻿namespace AnimalsData.Model
+﻿namespace AnimalsData.Model.Base
 {
     enum TypeOfAnimal
     {
