@@ -1,12 +1,12 @@
 ﻿using AnimalsData.Infrastructure.Command;
 using AnimalsData.Model.Base;
+using AnimalsData.Model.DataBase;
+using AnimalsData.View;
 using AnimalsData.ViewModel.Base;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Input;
-using AnimalsData.View;
 
 namespace AnimalsData.ViewModel
 {
@@ -15,6 +15,7 @@ namespace AnimalsData.ViewModel
 
         #region Fields
 
+        private SqlData context;
 
         #region Type of animal
 
@@ -102,7 +103,8 @@ namespace AnimalsData.ViewModel
         private void OnOpenAddNewAnimal(object p)
         {
             AddNewAnimalWindow addWindow = new AddNewAnimalWindow();
-            addWindow.Show();
+            addWindow.ShowDialog();
+            addWindow.Close();
         }
 
         private bool CanOpenAddNewAnimal(object p) => true;
@@ -116,6 +118,7 @@ namespace AnimalsData.ViewModel
 
         private void OnDeleteSelectedAnimal(object p)
         {
+            context.Delete(SelectedAnimal);
             _animals.Remove(SelectedAnimal);
         }
 
@@ -166,6 +169,8 @@ namespace AnimalsData.ViewModel
                 = new LambdaCommand(OnSelectTypeOfAnimal, CanSelectTypeOfAnimal);
 
             #endregion
+
+            context = new SqlData();
 
             _typeOfAnimalsTypeOfAnimalsItems = (TypeOfAnimal[])Enum.GetValues(typeof(TypeOfAnimal));
         }

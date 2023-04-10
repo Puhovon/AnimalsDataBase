@@ -1,10 +1,11 @@
 ﻿using AnimalsData.Model.AnimalModels;
 using AnimalsData.Model.Base;
+using AnimalsData.Model.DataBase;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
 namespace AnimalsData.ViewModel
-{
+{ 
     static class AnimalFactory
     {
         static ObservableCollection<IAnimal> animals;
@@ -24,15 +25,20 @@ namespace AnimalsData.ViewModel
 
                     return animals;
                 case "Birds":
-                    Debug.Write(type.ToString());
+                    animals = SqlData.GetAnimals(type);
                     return animals;
                 case "Mammals":
-                    Debug.Write(type.ToString());
+                    animals = SqlData.GetAnimals(type);
                     return animals;
-                    default:
-                    Debug.Write(type.ToString());
+                case "Undefined":
+                    animals = SqlData.GetAnimals(type);
+                    return animals;
+                default: 
+                        animals = SqlData.GetAnimals(type);
                     return animals;
             }
         }
+
+       
     }
 }

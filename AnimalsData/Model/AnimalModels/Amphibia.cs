@@ -1,9 +1,11 @@
 ﻿using AnimalsData.Model.Base;
+using Microsoft.EntityFrameworkCore;
 
 namespace AnimalsData.Model.AnimalModels
 {
     class Amphibia : IAnimal
     {
+        
         public int Id { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }

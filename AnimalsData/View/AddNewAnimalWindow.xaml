@@ -65,7 +65,8 @@
                 Width="100"
                 Height="20"
                 Content="Apply"
-                Command="{Binding ApplyCreationNewAnimalCommand}"/>
+                Command="{Binding ApplyCreationNewAnimalCommand}"
+                Click="ButtonBase_OnClick"/>
 
             <Button
                 Width="100"

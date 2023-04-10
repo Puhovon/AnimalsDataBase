@@ -7,6 +7,7 @@ using AnimalsData.Infrastructure.Command;
 using AnimalsData.Model.AnimalModels;
 using AnimalsData.Model.DataBase;
 using System;
+using AnimalsData.View;
 
 namespace AnimalsData.ViewModel
 {
@@ -82,6 +83,7 @@ namespace AnimalsData.ViewModel
                     context.Add(undefiend);
                     Debug.WriteLine($"Creation Completed: {SelectedTypeAnimal.ToString()}");
                     break;
+
             }
         }
 

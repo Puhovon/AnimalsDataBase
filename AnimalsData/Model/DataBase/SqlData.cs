@@ -18,7 +18,7 @@ namespace AnimalsData.Model.DataBase
 
         public ObservableCollection<IAnimal> Animals { get; set; }
 
-        public IEnumerable<IAnimal> GetAnimals(string type)
+        static public ObservableCollection<IAnimal> GetAnimals(string type)
         {
             using (var con = new Context())
             {
@@ -26,20 +26,20 @@ namespace AnimalsData.Model.DataBase
                 {
                     case "Amphibias":
                         var Amphibias = con.Amphibias.ToList();
-                        return Amphibias;
-
+                        ObservableCollection<IAnimal> amphibias = new ObservableCollection<IAnimal>(Amphibias);
+                        return amphibias;
                     case "Mammals":
                         var mammals = con.Mammals.ToList();
-                        return mammals;
-
+                        ObservableCollection<IAnimal> mammal= new ObservableCollection<IAnimal>(mammals);
+                        return mammal;
                     case "Birds":
                         var birds = con.Birds.ToList();
-                        return birds;
-
+                        ObservableCollection<IAnimal> bird = new ObservableCollection<IAnimal>(birds);
+                        return bird;
                     case "Undefineds":
                         var undefineds = con.Undefindes.ToList();
-                        return undefineds;
-         
+                        ObservableCollection<IAnimal> undefined = new ObservableCollection<IAnimal>(undefineds);
+                        return undefined;
                     default: return null;
                 }
             }
@@ -47,27 +47,29 @@ namespace AnimalsData.Model.DataBase
 
         public void Add(IAnimal animal)
         {
-            int id = GetAnimals(animal.Type).Count() + 1;
-            animal.Id = id;
             switch (animal.Type)
             {
                 case "Amphibias":
                     context.Amphibias.Add((Amphibia)animal);
+                    context.SaveChanges();
                     break;
 
                 case "Mammals":
                     context.Mammals.Add((Mammal)animal);
+                    context.SaveChanges();
                     break;
 
                 case "Birds":
                     context.Birds.Add((Bird)animal);
+                    context.SaveChanges();
+
                     break;
 
                 case "Undefineds":
                     context.Undefindes.Add((Undefined)animal);
+                    context.SaveChanges();
                     break;
             }
-            context.SaveChanges();
         }
 
         public void Delete(IAnimal animal)
@@ -75,19 +77,23 @@ namespace AnimalsData.Model.DataBase
             switch (animal.Type)
             {
                 case "Amphibias":
-                    context.Amphibias.Remove((Amphibia)animal);
+                    Amphibia am = context.Amphibias.First(e => e.Id == animal.Id);
+                    context.Amphibias.Remove(am);
                     break;
 
                 case "Mammals":
-                    context.Mammals.Remove((Mammal)animal);
+                    Mammal mam = context.Mammals.First(e => e.Id == animal.Id);
+                    context.Mammals.Remove(mam);
                     break;
 
                 case "Birds":
-                    context.Birds.Remove((Bird)animal);
+                    Bird bird = context.Birds.First(e => e.Id == animal.Id);
+                    context.Birds.Remove(bird);
                     break;
 
                 case "Undefineds":
-                    context.Undefindes.Remove((Undefined)animal);
+                    Undefined undef = context.Undefindes.First(e => e.Id == animal.Id);
+                    context.Undefindes.Remove(undef);
                     break;
             }
             context.SaveChanges();
